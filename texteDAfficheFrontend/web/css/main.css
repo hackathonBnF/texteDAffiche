@@ -7,17 +7,38 @@ h1 {
 
 footer {
     position: fixed;
-    height: 50px;
     bottom: 0;
     width: 100%;
     color: #CCC;
 }
 
-.affiche {
+.affiche, .illustration {
     max-width: 250px;
     max-height: 400px;
+    cursor: pointer;
+}
+
+.affiche-little, .illustration-little {
+    max-width: 200px;
+    max-height: 300px;
+    cursor: pointer;
 }
 
 #divSearchBar {
     margin-bottom: 10px;
+}
+
+.templateAfficheInfoContainerRow, .templateIllustrationInfoContainerRow {
+    margin: 0px 20px 10px 20px;
+    border: 1px solid #CCC;
+    border-radius: 6px;
+}
+
+.btn-remove-templateAfficheInfoContainerRow, .btn-remove-templateIllustrationInfoContainerRow {
+    margin-top: -1px;
+    margin-right: -1px;
+}
+
+.bookContainerForMovie, .movieContainerForBook {
+    display: block;
 }

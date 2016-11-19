@@ -39,91 +39,164 @@
             <div class="row">
                 <nav class="col-md-3">
                     <div class="btn-group">
-                        <a class="btn btn-lg btn-primary active"><i class="fa fa-video-camera" aria-hidden="true"></i> <i class="fa fa-chevron-right" aria-hidden="true"></i> <i class="fa fa-book" aria-hidden="true"></i></a>
-                        <a class="btn btn-lg btn-primary"><i class="fa fa-book" aria-hidden="true"></i> <i class="fa fa-chevron-right" aria-hidden="true"></i> <i class="fa fa-video-camera" aria-hidden="true"></i></a>
+                        <button id="btnMovieTOBook" class="btn btn-lg btn-primary active"><i class="fa fa-video-camera" aria-hidden="true"></i> <i class="fa fa-chevron-right" aria-hidden="true"></i> <i class="fa fa-book" aria-hidden="true"></i></button>
+                        <button id="btnBookTOMovie" class="btn btn-lg btn-primary"><i class="fa fa-book" aria-hidden="true"></i> <i class="fa fa-chevron-right" aria-hidden="true"></i> <i class="fa fa-video-camera" aria-hidden="true"></i></button>
                     </div>
                 </nav>
                 <div class="col-md-6 col-md-offset-3">
                     <div id="divSearchBar" class="text-right">
-                        <input type="search" class="form-control input-lg" placeholder="Text input" />
+                        <div class="input-group">
+                            <input id="searchInput" type="search" class="form-control input-lg" placeholder="Search for ..." />
+                            <span class="input-group-btn">
+                                <button id="searchButton" class="btn btn-lg btn-default" type="button"><i class="fa fa-search" aria-hidden="true"></i></button>
+                            </span>
+                        </div>
                     </div>
                 </div>
             </div>
 
             <div class="row">
-                <section class="col-sm-12">
-                    <div class="col-sm-3">
-                        <div class="afficheContainer">
-                            <img class="affiche thumbnail" src="web/images/afficheTest.png" alt="" title="" />
-                        </div>
-                    </div>
-                    <div class="col-sm-3">
-                        <div class="afficheContainer">
-                            <img class="affiche thumbnail" src="web/images/afficheTest.png" alt="" title="" />
-                        </div>
-                    </div>
-                    <div class="col-sm-3">
-                        <div class="afficheContainer">
-                            <img class="affiche thumbnail" src="web/images/afficheTest.png" alt="" title="" />
-                        </div>
-                    </div>
-                    <div class="col-sm-3">
-                        <div class="afficheContainer">
-                            <img class="affiche thumbnail" src="web/images/afficheTest.png" alt="" title="" />
-                        </div>
-                    </div>
-                    <div class="col-sm-3">
-                        <div class="afficheContainer">
-                            <img class="affiche thumbnail" src="web/images/afficheTest.png" alt="" title="" />
-                        </div>
-                    </div>
-                    <div class="col-sm-3">
-                        <div class="afficheContainer">
-                            <img class="affiche thumbnail" src="web/images/afficheTest.png" alt="" title="" />
-                        </div>
-                    </div>
-                    <div class="col-sm-3">
-                        <div class="afficheContainer">
-                            <img class="affiche thumbnail" src="web/images/afficheTest.png" alt="" title="" />
-                        </div>
-                    </div>
-                    <div class="col-sm-3">
-                        <div class="afficheContainer">
-                            <img class="affiche thumbnail" src="web/images/afficheTest.png" alt="" title="" />
-                        </div>
-                    </div>
-                    <div class="col-sm-3">
-                        <div class="afficheContainer">
-                            <img class="affiche thumbnail" src="web/images/afficheTest.png" alt="" title="" />
-                        </div>
-                    </div>
+                <section class="col-sm-12" id="sectionContent">
                 </section>
             </div>
         </section>
 
-        <div id="templaceAfficheInfoContainer" class="hidden">
-            <div class="col-sm-6">
-                <h2>Titre film</h2>
-                <ul>
-                    <li>Réalisateur</li>
-                    <li>Distribution</li>
-                    <li>Date de réalisation</li>
-                    <li>Langue</li>
-                    <li>Pays</li>
-                    <li>Genre</li>
-                </ul>
-            </div>
-            <div class="col-sm-6" id="placeForTemplateBooksForAffiche">
+        <div id="templateAfficheInfoContainer" class="hidden">
+            <div class="row templateAfficheInfoContainerRow">
+                <div class="pull-right" style=""><button class="btn btn-sm btn-default btn-remove-templateAfficheInfoContainerRow"><i class="fa fa-times" aria-hidden="true"></i></button></div>
+                <div class="col-sm-6">
+                    <h2 class="templateAfficheInfoContainer-title">Titre film</h2>
+                    <div class="list-group">
+                        <dl class="list-group-item dl-horizontal">
+                            <dt>Réalisateur</dt>
+                            <dd class="templateAfficheInfoContainer-director"></dd>
+                        </dl>
+                        <dl class="list-group-item dl-horizontal">
+                            <dt>Distribution</dt>
+                            <dd class="templateAfficheInfoContainer-starring"></dd>
+                        </dl>
+                        <dl class="list-group-item dl-horizontal">
+                            <dt>Date de réalisation</dt>
+                            <dd class="templateAfficheInfoContainer-date"></dd>
+                        </dl>
+                        <dl class="list-group-item dl-horizontal">
+                            <dt>Langue</dt>
+                            <dd class="templateAfficheInfoContainer-language"></dd>
+                        </dl>
+                        <dl class="list-group-item dl-horizontal">
+                            <dt>Pays</dt>
+                            <dd class="templateAfficheInfoContainer-country"></dd>
+                        </dl>
+                        <dl class="list-group-item dl-horizontal">
+                            <dt>Genre</dt>
+                            <dd class="templateAfficheInfoContainer-genre"></dd>
+                        </dl>
+                    </div>
+                </div>
+                <div class="col-sm-6">
 
+                </div>
             </div>
         </div>
 
         <div id="templateBooksForAffiche" class="hidden">
-            <div class="afficheContainer">
-                <img class="affiche thumbnail" src="web/images/afficheTest.png" alt="" title="" />
-                <div>
-                    <div class="col-sm-6">Auteur</div>
-                    <div class="col-sm-6">Date</div>
+            <div class="bookContainerForMovie">
+                <div class="row">
+                    <div class="col-sm-6" style="padding-right: 2px;">
+                        <img class="affiche-little thumbnail" style="margin-bottom: 0px;" src="" alt="" title="" />
+                    </div>
+                    <div class="col-sm-6" style="padding-left: 0px;">
+                        <div class="list-group">
+                            <dl class="list-group-item">
+                                <dt>Titre</dt>
+                                <dd class="templateBooksForAffiche-title"></dd>
+                            </dl>
+                            <dl class="list-group-item">
+                                <dt>Auteur</dt>
+                                <dd class="templateBooksForAffiche-author"></dd>
+                            </dl>
+                            <dl class="list-group-item">
+                                <dt>Date de publication</dt>
+                                <dd class="templateBooksForAffiche-publication"></dd>
+                            </dl>
+                            <div class="list-group-item" style="padding: 0px;">
+                                <div class="btn-group btn-group-vertical"  style="width: 100%;">
+                                    <a href="#" class="templateBooksForAffiche-bnf btn btn-block btn-primary" style="margin: 0px; border-radius: 0px;">Lire sur Gallica</a>
+                                    <a href="#" class="templateBooksForAffiche-rebond btn btn-block btn-primary" style="margin: 0px; border-radius: 0px;">Voir les films sur cet ouvrage</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="templateIllustrationInfoContainer" class="hidden">
+            <div class="row templateIllustrationInfoContainerRow">
+                <div class="pull-right" style=""><button class="btn btn-sm btn-default btn-remove-templateIllustrationInfoContainerRow"><i class="fa fa-times" aria-hidden="true"></i></button></div>
+                <div class="col-sm-6">
+                    <h2 class="templateIllustrationInfoContainer-title">Titre film</h2>
+                    <div class="list-group">
+                        <dl class="list-group-item dl-horizontal">
+                            <dt>Auteur</dt>
+                            <dd class="templateIllustrationInfoContainer-author"></dd>
+                        </dl>
+                        <dl class="list-group-item dl-horizontal">
+                            <dt>Date de publication</dt>
+                            <dd class="templateIllustrationInfoContainer-publication"></dd>
+                        </dl>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+
+                </div>
+            </div>
+        </div>
+
+        <div id="templateMoviesForIllustration" class="hidden">
+            <div class="movieContainerForBook">
+                <div class="row">
+                    <div class="col-sm-6" style="padding-right: 2px;">
+                        <img class="illustration-little thumbnail" style="margin-bottom: 0px;" src="" alt="" title="" />
+                    </div>
+                    <div class="col-sm-6" style="padding-left: 0px;">
+                        <div class="list-group">
+                            <dl class="list-group-item">
+                                <dt>Titre</dt>
+                                <dd class="templateMoviesForIllustration-title"></dd>
+                            </dl>
+                            <dl class="list-group-item">
+                                <dt>Réalisateur</dt>
+                                <dd class="templateMoviesForIllustration-director"></dd>
+                            </dl>
+                            <dl class="list-group-item">
+                                <dt>Distruction</dt>
+                                <dd class="templateMoviesForIllustration-starring"></dd>
+                            </dl>
+                            <dl class="list-group-item">
+                                <dt>Date</dt>
+                                <dd class="templateMoviesForIllustration-date"></dd>
+                            </dl>
+                            <dl class="list-group-item">
+                                <dt>Langue</dt>
+                                <dd class="templateMoviesForIllustration-language"></dd>
+                            </dl>
+                            <dl class="list-group-item">
+                                <dt>Pays</dt>
+                                <dd class="templateMoviesForIllustration-country"></dd>
+                            </dl>
+                            <dl class="list-group-item">
+                                <dt>Genre</dt>
+                                <dd class="templateMoviesForIllustration-genre"></dd>
+                            </dl>
+                            <div class="list-group-item" style="padding: 0px;">
+                                <div class="btn-group btn-group-vertical"  style="width: 100%;">
+                                    <a href="#" class="templateMoviesForIllustration-imdb btn btn-block btn-primary" style="margin: 0px; border-radius: 0px;">Lire sur IMBD</a>
+                                    <a href="#" class="templateMoviesForIllustration-rebond btn btn-block btn-primary" style="margin: 0px; border-radius: 0px;">Voir les ouvrages qui ont inspiré ce film</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -136,5 +209,19 @@
 
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
         <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+        <script src="web/js/movieTObook.js"></script>
+        <script src="web/js/bookTOmovie.js"></script>
+        <script>
+            $('#btnBookTOMovie').on('click', function() {
+                $('#btnMovieTOBook').removeClass('active');
+                $(this).addClass('active');
+            });
+
+            $('#btnMovieTOBook').on('click', function() {
+                $('#btnBookTOMovie').removeClass('active');
+                $(this).addClass('active');
+            });
+        </script>
     </body>
 </html>
