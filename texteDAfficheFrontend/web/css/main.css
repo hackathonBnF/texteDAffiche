@@ -1,0 +1,23 @@
+h1 {
+    font-size: 1.2em;
+    margin:0px;
+    font-weight: 400 !important;
+    line-height: 1 !important;
+}
+
+footer {
+    position: fixed;
+    height: 50px;
+    bottom: 0;
+    width: 100%;
+    color: #CCC;
+}
+
+.affiche {
+    max-width: 250px;
+    max-height: 400px;
+}
+
+#divSearchBar {
+    margin-bottom: 10px;
+}
