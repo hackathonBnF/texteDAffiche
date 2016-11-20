@@ -87,5 +87,21 @@ class SearchTest < ActiveSupport::TestCase
     assert_equal(0, results.size)
     assert_equal(0, nb_results)    
   end
+
+  test "Indexation by movie id" do
+    id = "Q174385"
+    search = Search.new
+    sleep(1)
+    old_count = search.count    
+    search.index_movie(id)
+    sleep(1)
+    assert_equal(old_count + 1, search.count)
+    search_result = search.search("Alice")
+    results = search_result[:results]
+    nb_results = search_result[:nb_results]
+    assert_equal(1, results.size)
+    assert_equal(1, nb_results)
+    assert_equal("Alice au pays des merveilles", results[0]["label"])    
+  end
   
 end

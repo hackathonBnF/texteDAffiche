@@ -59,7 +59,7 @@ class SourceTest < ActiveSupport::TestCase
     assert_equal(id, result["id"])
     assert_equal("Alice au pays des merveilles", result["label"])
     assert_equal("Tim Burton", result["director"])
-    #assert_equal(["Tim Burton", "Hannah Roberts", "Anne Hathaway", "Crispin Glover", "Marton Csokas", "Lindsay Duncan", "Eleanor Tomlinson", "Frances de la Tour", "Matt Lucas", "Geraldine James", "Alan Rickman"], result["starring"])
+    assert_equal(["Tim Burton", "Hannah Roberts", "Anne Hathaway", "Crispin Glover", "Marton Csokas", "Lindsay Duncan", "Eleanor Tomlinson", "Frances de la Tour", "Matt Lucas", "Geraldine James", "Alan Rickman"], result["starring"])
     assert_equal("2010-03-05", result["date"])
     assert_equal("film de fantasy", result["genre"])
     assert_equal("Royaume-Uni", result["country"])

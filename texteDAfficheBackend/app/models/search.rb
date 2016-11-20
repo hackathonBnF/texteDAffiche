@@ -27,6 +27,11 @@ class Search
     @client.index index: @index_name, type: @type_name, id: id, body: data
   end
 
+  def index_movie(id)    
+    result = Source.get_data(id)
+    add(id, result)
+  end
+  
   def search(for_value)
     search_result = @client.search(:index => @index_name, :body => {:query => {
                                                                       :bool => {
