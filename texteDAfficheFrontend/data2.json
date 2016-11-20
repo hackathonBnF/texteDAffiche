@@ -1,0 +1,43 @@
+[
+  {
+    "id": "1",
+    "title": "Vingt mille lieues sous les mers",
+    "author": "Jules Verne",
+    "publication": "1869-1870",
+    "bnf": "0000000",
+    "thumbnail": "web/images/afficheTest2.jpg",
+    "movies": [{
+      "id": "1",
+      "label": "Vingt mille lieues sous les mers",
+      "director": "Richard Fleischer",
+      "starring": "Kirk Douglas, James Mason",
+      "date": "1954",
+      "genre": "Aventure",
+      "country": "États-Unis",
+      "language": "Anglais",
+      "imdb": "0000000000",
+      "poster": "web/images/afficheTest.jpg"
+    }]
+  },
+  {
+    "id": "2",
+    "title": "Test",
+    "author": "lol",
+    "publication": "fjfj",
+    "bnf": "0000000",
+    "thumbnail": "web/images/afficheTest2.jpg",
+    "movies": [{
+      "id": "1",
+      "label": "Vingt mille lieues sous les mers",
+      "director": "Richard Fleischer",
+      "starring": "Kirk Douglas, James Mason",
+      "date": "1954",
+      "genre": "Aventure",
+      "country": "États-Unis",
+      "language": "Anglais",
+      "imdb": "0000000000",
+      "poster": "web/images/afficheTest.jpg"
+    }]
+  }
+
+]
