@@ -28,7 +28,7 @@ class SourceTest < ActiveSupport::TestCase
   end
 
   test "Simple gallica call" do
-    assert_equal("http://gallica.bnf.fr/ark:/12148/bpt6k202877g.thumbnail", Source.gallica_thumbnail("12417486p"))
+    assert_equal("http://gallica.bnf.fr/ark:/12148/bpt6k2294912", Source.gallica_thumbnail("12417486p"))
 
     #With unknown id
     assert_nil(Source.gallica_thumbnail("16473943p"))
@@ -58,8 +58,8 @@ class SourceTest < ActiveSupport::TestCase
     result = Source.get_data(id)
     assert_equal(id, result["id"])
     assert_equal("Alice au pays des merveilles", result["label"])
-    assert_equal("Tim Burton", result["director"])
-    assert_equal(["Tim Burton", "Hannah Roberts", "Anne Hathaway", "Crispin Glover", "Marton Csokas", "Lindsay Duncan", "Eleanor Tomlinson", "Frances de la Tour", "Matt Lucas", "Geraldine James", "Alan Rickman"], result["starring"])
+    assert_equal("Tim Burton", result["director"])    
+    assert_equal("Johnny Depp, Hannah Roberts, Anne Hathaway, Crispin Glover, Marton Csokas, Lindsay Duncan, Eleanor Tomlinson, Frances de la Tour, Matt Lucas, Geraldine James, Alan Rickman, Christopher Lee, Helena Bonham Carter, John Hopkins, Leo Bill, Mia Wasikowska, Michael Gough, Michael Sheen, Paul Whitehouse, Stephen Fry, Tim Pigott-Smith, Timothy Spall, Barbara Windsor", result["starring"])
     assert_equal("2010-03-05", result["date"])
     assert_equal("film de fantasy", result["genre"])
     assert_equal("Royaume-Uni", result["country"])

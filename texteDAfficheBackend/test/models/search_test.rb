@@ -68,7 +68,6 @@ class SearchTest < ActiveSupport::TestCase
                    :thumbnail => "http://test.com/monimage2.jpg"
                  }]
     }
-    #puts "TEST : #{data[:books][0][:title]}"
     search = Search.new
     search.add(id, data)
     sleep(2)
@@ -81,11 +80,13 @@ class SearchTest < ActiveSupport::TestCase
       assert_equal(id, results[0]["id"])
       assert_equal(label, results[0]["label"])
     }
-    search_result = search.search("toto") 
-    results = search_result[:results]
-    nb_results = search_result[:nb_results]
-    assert_equal(0, results.size)
-    assert_equal(0, nb_results)    
+    ["toto", "", nil].each{|value|
+      search_result = search.search(value) 
+      results = search_result[:results]
+      nb_results = search_result[:nb_results]
+      assert_equal(0, results.size)
+      assert_equal(0, nb_results)
+    }
   end
 
   test "Indexation by movie id" do
@@ -96,12 +97,52 @@ class SearchTest < ActiveSupport::TestCase
     search.index_movie(id)
     sleep(1)
     assert_equal(old_count + 1, search.count)
-    search_result = search.search("Alice")
-    results = search_result[:results]
-    nb_results = search_result[:nb_results]
-    assert_equal(1, results.size)
-    assert_equal(1, nb_results)
-    assert_equal("Alice au pays des merveilles", results[0]["label"])    
+    ["Alice", "Johnny Depp"].each{|value|
+      search_result = search.search(value)
+      results = search_result[:results]
+      nb_results = search_result[:nb_results]
+      assert_equal(1, results.size)
+      assert_equal(1, nb_results)
+      assert_equal("Alice au pays des merveilles", results[0]["label"])
+    }    
   end
   
+  test "Search by document id" do
+    id = "Q174385"
+    search = Search.new
+    sleep(1)
+    old_count = search.count    
+    search.index_movie(id)
+    sleep(1)
+    assert_equal(old_count + 1, search.count)
+    ["Q92640", "Q220331"].each{|id|
+      search_result = search.search_by_book(id)
+      results = search_result[:results]
+      nb_results = search_result[:nb_results]
+      assert_equal(1, results.size)
+      assert_equal(1, nb_results)
+      assert_equal("Alice au pays des merveilles", results[0]["label"])
+    }  
+    ["", "toto"].each{|id|
+      search_result = search.search_by_book(id)
+      results = search_result[:results]
+      nb_results = search_result[:nb_results]
+      assert_equal(0, results.size)
+      assert_equal(0, nb_results)
+    }   
+  end
+
+  test "Index all" do
+    index_all
+  end
+  
+  def index_all
+    search = Search.new
+    search.clear
+    require 'json'
+    file = File.read('./test/fixtures/tested_movies.json')
+    data_hash = JSON.parse(file)
+    ids = data_hash.map{|elem| /([^\/]*)$/.match(elem["film"])[0]}
+    ids.each{|id| search.index_movie(id)}
+  end
 end

@@ -10,13 +10,8 @@ class Source
   @@imdb_url_template = "https://api.themoviedb.org/3/find/THE_ID?api_key=API_KEY&external_source=imdb_id"
 
   @@gallica_sparql_endpoint = "http://data.bnf.fr/sparql?default-graph-uri=&query=THE_QUERY&format=json&timeout=0&should-sponge=&debug=on"
-  @@gallica_sparql_query_template = "SELECT DISTINCT ?depiction
-                                     WHERE {
-                                      <http://data.bnf.fr/ark:/12148/cbTHE_GALLICA_ID#frbr:Work> foaf:depiction ?depiction
-                                      } 
-                                     ORDER BY ?depiction
-                                     LIMIT 1"
-  
+  @@gallica_sparql_query_template = "SELECT DISTINCT ?gallica WHERE {?manif rdarelationships:workManifested <http://data.bnf.fr/ark:/12148/cbTHE_GALLICA_ID#frbr:Work>; rdarelationships:electronicReproduction ?gallica} LIMIT 1"
+
   def self.wiki_data(id)
     wiki_data_id = /Q\d*/.match(id) ? id : "Q" + id
     url = @@wiki_data_url + wiki_data_id
@@ -43,7 +38,7 @@ class Source
     sparql_result = get_json(url, false)
     bindings = sparql_result["results"]["bindings"]
     unless(bindings.empty?)
-      bindings[0]["depiction"]["value"]
+      bindings[0]["gallica"]["value"]
     end
   end
 
@@ -89,6 +84,13 @@ class Source
                            author = wiki_data(author_id)
                            get_value(author, ["labels", "fr", "value"])
                          end
+
+    starring = get_value(wiki_data, ["claims", "P161"]).map{|elem|
+      star_id = elem["mainsnak"]["datavalue"]["value"]["id"]
+      wiki_data_star = wiki_data(star_id)
+      get_value(wiki_data_star, ["labels", "fr", "value"])
+    }.join(", ")
+    result["starring"] = starring
     
     date = get_value(wiki_data, ["claims", "P577",  0, "mainsnak", "datavalue", "value", "time"])
     result["date"] =  begin
