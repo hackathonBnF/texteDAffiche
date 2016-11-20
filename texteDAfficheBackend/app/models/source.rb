@@ -12,7 +12,7 @@ class Source
   @@gallica_sparql_endpoint = "http://data.bnf.fr/sparql?default-graph-uri=&query=THE_QUERY&format=json&timeout=0&should-sponge=&debug=on"
   @@gallica_sparql_query_template = "SELECT DISTINCT ?depiction
                                      WHERE {
-                                      <http://data.bnf.fr/ark:/12148/cbTHE_GALLICA_IDp#frbr:Work> foaf:depiction ?depiction
+                                      <http://data.bnf.fr/ark:/12148/cbTHE_GALLICA_ID#frbr:Work> foaf:depiction ?depiction
                                       } 
                                      ORDER BY ?depiction
                                      LIMIT 1"
@@ -36,38 +36,85 @@ class Source
     res['movie_results'][0]
   end
 
-  def self.gallica(id)
+  def self.gallica_thumbnail(id)
     #P268 on wiki data for Gallica
     query =  CGI::escape(@@gallica_sparql_query_template.gsub("THE_GALLICA_ID", id))
     url = @@gallica_sparql_endpoint.gsub("THE_QUERY", query)
     sparql_result = get_json(url, false)
     bindings = sparql_result["results"]["bindings"]
-    result = nil
     unless(bindings.empty?)
-      result = {}
-      result["thumbnail"] = bindings[0]["depiction"]["value"]
+      bindings[0]["depiction"]["value"]
     end
-    result
   end
 
 
   def self.get_data(id)
     wiki_data = wiki_data(id)
     
-    imdb_id = wiki_data["claims"]["P345"][0]["mainsnak"]["datavalue"]["value"]
+    imdb_id = get_value(wiki_data, ["claims", "P345", 0, "mainsnak", "datavalue", "value"])
     imdb = imdb(imdb_id)
-    books = wiki_data["claims"]["P144"].map{|elem|
+    books = get_value(wiki_data, ["claims", "P144"]).map{|elem|
       book_id = elem["mainsnak"]["datavalue"]["value"]["id"]
-      gallica = gallica(book_id)
-      #gallica_id = gallica["claims"]["P268"][0]["mainsnak"]["datavalue"]["value"]
       wiki_data_book = wiki_data(book_id)
       book = {}
-      book["publication"] = DateTime.parse(wiki_data_book["claims"]["P577"][0]["mainsnak"]["datavalue"]["value"]["time"]).strftime("%Y-%m-%d")
+      book["id"] = book_id
+      publication = get_value(wiki_data_book, ["claims", "P577", 0, "mainsnak", "datavalue", "value", "time"])
+      book["publication"] = begin
+                              DateTime.parse(publication).strftime("%Y-%m-%d")
+                            rescue
+                              nil
+                            end
+      book["title"] = get_value(wiki_data_book, ["labels", "fr", "value"])
+
+      author_id = get_value(wiki_data_book, ["claims", "P50", 0, "mainsnak", "datavalue", "value", "id"])
+      book["author"] = if(author_id)
+                           author = wiki_data(author_id)
+                           get_value(author, ["labels", "fr", "value"])
+                         end
+
+      book["bnf"] = get_value(wiki_data_book, ["claims", "P268", 0, "mainsnak", "datavalue", "value"])
+      
+      gallica_id = get_value(wiki_data_book, ["claims", "P268", 0, "mainsnak", "datavalue", "value"])
+      book["thumbnail"] = gallica_thumbnail(gallica_id) if(gallica_id)
       book
     }
 
     result = {}
     result["id"] = id
+    result["imdb"] = imdb_id
+    result["label"] = get_value(wiki_data, ["labels", "fr", "value"])
+
+    author_id = get_value(wiki_data, ["claims", "P57", 0, "mainsnak", "datavalue", "value", "id"])
+    result["director"] = if(author_id)
+                           author = wiki_data(author_id)
+                           get_value(author, ["labels", "fr", "value"])
+                         end
+    
+    date = get_value(wiki_data, ["claims", "P577",  0, "mainsnak", "datavalue", "value", "time"])
+    result["date"] =  begin
+                        DateTime.parse(date).strftime("%Y-%m-%d")
+                      rescue
+                        nil
+                      end
+    
+    genre_id = get_value(wiki_data, ["claims", "P136", 0, "mainsnak", "datavalue", "value", "id"])
+    result["genre"] = if(genre_id)
+                        genre = wiki_data(genre_id)
+                        get_value(genre, ["labels", "fr", "value"])
+                      end
+
+    country_id = get_value(wiki_data, ["claims", "P495", 0, "mainsnak", "datavalue", "value", "id"])
+    result["country"] = if(country_id)
+                        country = wiki_data(country_id)
+                        get_value(country, ["labels", "fr", "value"])
+                      end
+
+    language_id = get_value(wiki_data, ["claims", "P364", 0, "mainsnak", "datavalue", "value", "id"])
+    result["language"] = if(language_id)
+                           language = wiki_data(language_id)
+                           get_value(language, ["labels", "fr", "value"])
+                         end
+
     result["poster"] = "http://image.tmdb.org/t/p/original" + imdb["backdrop_path"] if(imdb["backdrop_path"])
     result["books"] = books
     result
@@ -81,5 +128,13 @@ class Source
     else
       JSON.parse(RestClient.get(url))
     end    
+  end
+
+  def self.get_value(from, path)
+    path.reduce(from){|res, value|
+      if(res)
+        res[value] || nil
+      end
+    }
   end
 end
