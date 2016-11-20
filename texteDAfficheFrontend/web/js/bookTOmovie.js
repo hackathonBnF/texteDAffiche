@@ -1,8 +1,3 @@
-
-    function loadTemplateInfoBook(illustrationContainer, itemKey, entity) {
-
-    }
-
     function removeTemplateInfoBook(bookId) {
         $('#templateIllustrationInfoContainer-'+bookId).remove();
     }
@@ -14,14 +9,18 @@
 
             $('#sectionContent').children().last().append('' +
                 '<div class="col-sm-3">'+
-                '   <div class="illustrationContainer" id="'+data[itemKey].id+'">'+
-                '       <img class="affiche thumbnail" src="'+data[itemKey].thumbnail+'" alt="" title="" />'+
+                '   <div class="illustrationContainer" id="'+data[itemKey].id+'" key="'+itemKey+'">'+
+                '       <div class="text-center">' +
+                '       <img class="affiche" src="'+data[itemKey].thumbnail+'" alt="" title="" />'+
+                '       </div>'+
                 '   </div>'+
                 '</div>'
             );
 
             $('#'+data[itemKey].id).on('click', function() {
-                var illustrationContainer = $('#'+data[itemKey].id);
+                var fItemKey = $(this).attr('key');
+                var illustrationContainer = $('#'+data[fItemKey].id);
+
                 $.each($('div[id^="templateIllustrationInfoContainer-"]'), function() {
                     removeTemplateInfoBook($(this).attr('bookId'));
                 });
@@ -37,23 +36,28 @@
                 });
 
                 $('#templateIllustrationInfoContainer-'+illustrationContainer.attr('id')).children().last().attr('id', 'placeForTemplateMoviesForIllustration-'+illustrationContainer.attr('id'));
-                $('.templateIllustrationInfoContainer-title').text(data[itemKey].title);
-                $('.templateIllustrationInfoContainer-author').text(data[itemKey].author);
-                $('.templateIllustrationInfoContainer-publication').text(data[itemKey].publication);
+                $('.templateIllustrationInfoContainer-title').text(data[fItemKey].title);
+                $('.templateIllustrationInfoContainer-author').text(data[fItemKey].author);
+                $('.templateIllustrationInfoContainer-publication').text(data[fItemKey].publication);
+                $('.templateIllustrationInfoContainer-bnf').attr('href', data[fItemKey].bnf);
 
-                for(var keyMovie in data[itemKey].movies) {
+                for(var keyMovie in data[fItemKey].movies) {
                     if(keyMovie > 0) {$('#placeForTemplateMoviesForIllustration-'+illustrationContainer.attr('id')).append('<hr />');}
                     $('#placeForTemplateMoviesForIllustration-'+illustrationContainer.attr('id')).append($('#templateMoviesForIllustration').html());
 
-                    $('#placeForTemplateMoviesForIllustration-'+illustrationContainer.attr('id')).children().last().children().first().children().first().children().first()
-                        .attr('src', data[itemKey].movies[keyMovie].poster);
+                    $('#placeForTemplateMoviesForIllustration-'+illustrationContainer.attr('id')).children().last().children().first().children().first().children().first().children().first()
+                        .attr('src', data[fItemKey].movies[keyMovie].poster);
                     $('#placeForTemplateMoviesForIllustration-'+illustrationContainer.attr('id')).children().last()
                         .attr('id', 'placeForTemplateMoviesForIllustration-'+illustrationContainer.attr('id')+'-'+keyMovie);
 
-                    $('#placeForTemplateMoviesForIllustration-'+illustrationContainer.attr('id')+'-'+keyMovie).find('.templateMoviesForIllustration-title').text(data[itemKey].movies[keyMovie].label);
-                    $('#placeForTemplateMoviesForIllustration-'+illustrationContainer.attr('id')+'-'+keyMovie).find('.templateMoviesForIllustration-director').text(data[itemKey].movies[keyMovie].director);
-                    $('#placeForTemplateMoviesForIllustration-'+illustrationContainer.attr('id')+'-'+keyMovie).find('.templateMoviesForIllustration-starring').text(data[itemKey].movies[keyMovie].starring);
-                    $('#placeForTemplateMoviesForIllustration-'+illustrationContainer.attr('id')+'-'+keyMovie).find('.templateMoviesForIllustration-imdb').attr('href', data[itemKey].movies[keyMovie].imdb);
+                    $('#placeForTemplateMoviesForIllustration-'+illustrationContainer.attr('id')+'-'+keyMovie).find('.templateMoviesForIllustration-title').text(data[fItemKey].movies[keyMovie].label);
+                    $('#placeForTemplateMoviesForIllustration-'+illustrationContainer.attr('id')+'-'+keyMovie).find('.templateMoviesForIllustration-director').text(data[fItemKey].movies[keyMovie].director);
+                    $('#placeForTemplateMoviesForIllustration-'+illustrationContainer.attr('id')+'-'+keyMovie).find('.templateMoviesForIllustration-starring').text(data[fItemKey].movies[keyMovie].starring);
+                    $('#placeForTemplateMoviesForIllustration-'+illustrationContainer.attr('id')+'-'+keyMovie).find('.templateMoviesForIllustration-imdb').attr('href', data[fItemKey].movies[keyMovie].imdb);
+                    $('#placeForTemplateMoviesForIllustration-'+illustrationContainer.attr('id')+'-'+keyMovie).find('.templateMoviesForIllustration-date').text(data[fItemKey].movies[keyMovie].date);
+                    $('#placeForTemplateMoviesForIllustration-'+illustrationContainer.attr('id')+'-'+keyMovie).find('.templateMoviesForIllustration-genre').text(data[fItemKey].movies[keyMovie].genre);
+                    $('#placeForTemplateMoviesForIllustration-'+illustrationContainer.attr('id')+'-'+keyMovie).find('.templateMoviesForIllustration-language').text(data[fItemKey].movies[keyMovie].language);
+                    $('#placeForTemplateMoviesForIllustration-'+illustrationContainer.attr('id')+'-'+keyMovie).find('.templateMoviesForIllustration-country').text(data[fItemKey].movies[keyMovie].country);
                 }
             });
         }

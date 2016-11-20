@@ -25,7 +25,9 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="index.php" id="home-logo"><h1>Textes d'Affiches</h1></a>
+                    <a class="navbar-brand" href="index.php" id="home-logo">
+                        <img src="web/images/logo.jpg" style="max-height: 40px; margin-top: -10px; display: inline;" />
+                        <h1 style="display: inline;">Textes d'Affiches</h1></a>
                 </div>
                 <div class="collapse navbar-collapse">
                     <ul id="divNavBar" class="nav navbar-nav navbar-right">
@@ -93,7 +95,7 @@
                         </dl>
                     </div>
                 </div>
-                <div class="col-sm-6">
+                <div class="col-sm-6" style="border-left: 1px solid #ddd;">
 
                 </div>
             </div>
@@ -103,7 +105,9 @@
             <div class="bookContainerForMovie">
                 <div class="row">
                     <div class="col-sm-6" style="padding-right: 2px;">
-                        <img class="affiche-little thumbnail" style="margin-bottom: 0px;" src="" alt="" title="" />
+                        <div class="text-right">
+                            <img class="affiche-little" src="" alt="" title="" />
+                        </div>
                     </div>
                     <div class="col-sm-6" style="padding-left: 0px;">
                         <div class="list-group">
@@ -145,9 +149,14 @@
                             <dt>Date de publication</dt>
                             <dd class="templateIllustrationInfoContainer-publication"></dd>
                         </dl>
+                        <div class="list-group-item" style="padding: 0px;">
+                            <div class="btn-group btn-group-vertical"  style="width: 100%;">
+                                <a href="#" class="templateIllustrationInfoContainer-bnf btn btn-block btn-primary" style="margin: 0px; border-radius: 0px;">Lire sur Gallica</a>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="col-sm-6">
+                <div class="col-sm-6" style="border-left: 1px solid #ddd;">
 
                 </div>
             </div>
@@ -157,7 +166,9 @@
             <div class="movieContainerForBook">
                 <div class="row">
                     <div class="col-sm-6" style="padding-right: 2px;">
-                        <img class="illustration-little thumbnail" style="margin-bottom: 0px;" src="" alt="" title="" />
+                        <div class="text-right">
+                            <img class="illustration-little" src="" alt="" title="" />
+                        </div>
                     </div>
                     <div class="col-sm-6" style="padding-left: 0px;">
                         <div class="list-group">
@@ -191,7 +202,7 @@
                             </dl>
                             <div class="list-group-item" style="padding: 0px;">
                                 <div class="btn-group btn-group-vertical"  style="width: 100%;">
-                                    <a href="#" class="templateMoviesForIllustration-imdb btn btn-block btn-primary" style="margin: 0px; border-radius: 0px;">Lire sur IMBD</a>
+                                    <a href="#" class="templateMoviesForIllustration-imdb btn btn-block btn-primary" style="margin: 0px; border-radius: 0px;">Voir sur IMBD</a>
                                     <a href="#" class="templateMoviesForIllustration-rebond btn btn-block btn-primary" style="margin: 0px; border-radius: 0px;">Voir les ouvrages qui ont inspiré ce film</a>
                                 </div>
                             </div>
@@ -218,8 +229,7 @@
         <script src="web/js/movieTObook.js" type="text/javascript"></script>
         <script src="web/js/bookTOmovie.js" type="text/javascript"></script>
         <script type="text/javascript">
-            $(document).ready(function() {
-                var bool = 'book';
+                var bool = 'movie';
 
                 $('#btnBookTOMovie').on('click', function() {
                     $('#btnMovieTOBook').removeClass('active');
@@ -267,7 +277,6 @@
                 });
 
                 search('*');
-            });
         </script>
     </body>
 </html>
