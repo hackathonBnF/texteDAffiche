@@ -1,12 +1,33 @@
 <!DOCTYPE html>
 <html lang="fr">
     <head>
-        <?php include('meta.html'); ?>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="index,follow" />
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<meta name="author" content="" />
+<meta name="generator" content="HTML5, CSS3" />
+<meta property="og:site_name" content="" />
+<meta property="og:description" content="" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="" />
+<meta property="og:title" content="" />
+<meta property="og:image" content="" />
+<meta property="twitter:card" content="summary" />
+<meta property="twitter:url" content="" />
+<meta property="twitter:title" content="" />
+<meta property="twitter:description" content="" />
+<meta property="twitter:image" content="" />
+<meta property="twitter:site" content="" />
+<meta property="twitter:creator" content="" />
+
+<title>Textes d'Affiches</title>
 
         <!-- Latest compiled and minified CSS -->
-        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-        <link rel="stylesheet" href="web/css/main.css" type="text/css" />
-        <link rel="stylesheet" href="web/font-awesome/css/font-awesome.min.css" type="text/css" />
+        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <link rel="stylesheet" href="./web/css/main.css" type="text/css" />
+        <link rel="stylesheet" href="./web/font-awesome/css/font-awesome.min.css" type="text/css" />
 
         <!-- Le fav and touch icons -->
         <link rel="shortcut icon" href="../web/images/logo-big.png">
@@ -25,7 +46,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="index.php" id="home-logo">
+                    <a class="navbar-brand" href="index.html" id="home-logo">
                         <img src="web/images/logo.jpg" style="max-height: 40px; margin-top: -10px; display: inline;" />
                         <h1 style="display: inline;">Textes d'Affiches</h1></a>
                 </div>
@@ -126,7 +147,7 @@
                             <div class="list-group-item" style="padding: 0px;">
                                 <div class="btn-group btn-group-vertical"  style="width: 100%;">
                                     <a href="#" class="templateBooksForAffiche-bnf btn btn-block btn-primary" style="margin: 0px; border-radius: 0px;">Lire sur Gallica</a>
-                                    <a href="#" class="templateBooksForAffiche-rebond btn btn-block btn-primary" style="margin: 0px; border-radius: 0px;">Voir les films sur cet ouvrage</a>
+                                    <!--<a href="#" class="templateBooksForAffiche-rebond btn btn-block btn-primary" style="margin: 0px; border-radius: 0px;">Voir les films sur cet ouvrage</a>-->
                                 </div>
                             </div>
                         </div>
@@ -218,8 +239,8 @@
             </div>
         </footer>
 
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-        <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
         <script type="text/javascript">
             function initContent() {
@@ -248,8 +269,9 @@
                 function search(value) {
                     if(bool == 'book') {
                         $.ajax({
-                            dataType: "json",
+                            dataType: "jsonp",
                             url: 'http://localhost:3000/search/books/?q='+value,
+			    jsonp: "callback",
                             success: function (data) {
                                 loadDataBook(data);
                             },
@@ -259,21 +281,23 @@
                         });
                     }
                     else if(bool == 'movie') {
+			console.log("OK FOR MOVEIES");
                         $.ajax({
-                            dataType: "json",
+                            dataType: "jsonp",
                             url: 'http://localhost:3000/search/movies/?q='+value,
+			    jsonp: "callback",
                             success: function (data) {
                                 loadDataMovie(data);
                             },
                             error: function (error) {
-                                console.log(dump(error));
+                                console.log(dump(error+"1"));
                             }
                         });
                     }
                 }
 
                 $('#searchButton').on('click', function() {
-                    search($('#searchInput'));
+                    search($('#searchInput').val());
                 });
 
                 search('*');

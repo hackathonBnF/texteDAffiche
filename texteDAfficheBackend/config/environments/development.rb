@@ -38,7 +38,7 @@ Rails.application.configure do
 
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
-  
+  config.action_controller.allow_forgery_protection = false  
   #Hackathon
   config.x.imdb_api_key = ENV['IMDB_API_KEY']
 end

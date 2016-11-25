@@ -14,7 +14,7 @@ footer {
 
 .affiche, .illustration {
     max-width: 250px;
-    height: 350px;
+    max-height: 350px;
     cursor: pointer;
     padding: 3px;
     border: 1px solid #ddd;

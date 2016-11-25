@@ -5,10 +5,15 @@ class SearchController < ApplicationController
     query = params[:q]    
     search = Search.new
     results = search.search(query)
-    puts "IN CONTROLLER : #{results}"
-    render :json => results.to_json
+    logger.info "IN CONTROLLER : #{results}"
+    render :json => results[:results].to_json, :callback => params['callback']
   end
 
   def books
+    query = params[:q]    
+    search = Search.new
+    results = search.search(query)
+    logger.info "IN CONTROLLER : #{results}"
+    render :json => results[:results].to_json, :callback => params['callback']
   end
 end

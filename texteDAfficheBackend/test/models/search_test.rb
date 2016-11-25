@@ -138,9 +138,9 @@ class SearchTest < ActiveSupport::TestCase
   
   def index_all
     search = Search.new
-    search.clear
+    #search.clear
     require 'json'
-    file = File.read('./test/fixtures/tested_movies.json')
+    file = File.read('./test/fixtures/tested_movies_tmp.json')
     data_hash = JSON.parse(file)
     ids = data_hash.map{|elem| /([^\/]*)$/.match(elem["film"])[0]}
     ids.each{|id| search.index_movie(id)}

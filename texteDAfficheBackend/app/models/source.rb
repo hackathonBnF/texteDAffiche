@@ -85,11 +85,15 @@ class Source
                            get_value(author, ["labels", "fr", "value"])
                          end
 
-    starring = get_value(wiki_data, ["claims", "P161"]).map{|elem|
-      star_id = elem["mainsnak"]["datavalue"]["value"]["id"]
-      wiki_data_star = wiki_data(star_id)
-      get_value(wiki_data_star, ["labels", "fr", "value"])
-    }.join(", ")
+    starrings = get_value(wiki_data, ["claims", "P161"])
+    starring = nil
+    unless(starrings.nil?)
+      starring = starrings.map{|elem|
+        star_id = elem["mainsnak"]["datavalue"]["value"]["id"]
+        wiki_data_star = wiki_data(star_id)
+        get_value(wiki_data_star, ["labels", "fr", "value"])
+      }.join(", ")
+    end
     result["starring"] = starring
     
     date = get_value(wiki_data, ["claims", "P577",  0, "mainsnak", "datavalue", "value", "time"])
