@@ -1,0 +1,100 @@
+h1 {
+    font-size: 1.2em;
+    margin:0px;
+    font-weight: 400 !important;
+    line-height: 1 !important;
+    color: #fff;
+}
+
+footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    color: #CCC;
+    height: 40px;
+    padding-top: 10px;
+}
+
+footer .text-muted:hover, footer .text-muted:focus, footer .text-muted {
+    color: #CCC;
+}
+
+.affiche, .illustration {
+    max-width: 250px;
+    height: 350px;
+    cursor: pointer;
+    padding: 3px;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    margin-bottom: 8px;
+}
+
+.affiche-little, .illustration-little {
+    max-width: 200px;
+    max-height: 300px;
+    padding: 3px;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    margin-bottom: 5px;
+
+}
+
+.templateAfficheInfoContainerRow, .templateIllustrationInfoContainerRow {
+    margin: 0px 20px 10px 20px;
+    border: 1px solid #CCC;
+    border-radius: 6px;
+}
+
+.btn-remove-templateAfficheInfoContainerRow, .btn-remove-templateIllustrationInfoContainerRow {
+    margin-top: -1px;
+    margin-right: -1px;
+}
+
+.bookContainerForMovie, .movieContainerForBook {
+    display: block;
+}
+
+
+/* --------------- */
+/* autoComplete styles
+.autocomplete-suggestions {
+    text-align: left; cursor: pointer; border: 1px solid #ccc; border-top: 0; background: #fff; box-shadow: -1px 1px 3px rgba(0,0,0,.1);
+    position: absolute; display: none; z-index: 9999; max-height: 254px; overflow: hidden; overflow-y: auto; box-sizing: border-box;
+}
+.autocomplete-suggestion { position: relative; padding: 0; line-height: 23px; white-space: nowrap; overflow: hidden; font-size: 0.95em; color: #333;border-top:1px solid #eee ;}
+.autocomplete-suggestion:first-child {border-top:0}
+.autocomplete-suggestion b { font-weight: normal; color: #1f8dd6; }
+.ims{
+    line-height: 32px;
+}
+.is{
+    display:inline-block;
+    width:75px;
+    text-align:center;
+    position:relative;
+    top:5px;
+}
+.lbs{
+    position:relative;
+    top:-5px;
+    display:inline-block;
+}
+.lbi{
+    color:#717171;
+}
+.lis{
+    color:#717171;
+    display:inline-block;
+    min-width:67px;
+    position:relative;
+    left:3px;
+    margin-right:5px;
+    text-overflow: clip;
+}
+.als{
+    color:#717171;
+}
+.autocomplete-suggestion.selected{
+    background: #eee;
+}
+*/

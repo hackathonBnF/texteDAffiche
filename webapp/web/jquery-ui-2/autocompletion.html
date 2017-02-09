@@ -1,0 +1,100 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+	<title>/* / */</title>
+    <link rel="stylesheet" href="http://zone47.com/crotos/css/jquery-ui.css">
+    <script src="http://zone47.com/crotos/js/jquery.js"></script>
+    <script src="http://zone47.com/crotos/js/jquery-ui.min.js"></script>
+    <script src="http://zone47.com/crotos/js/jquery.auto-complete.js"></script>
+	<script>
+$(function(){
+	$('#cr').autoComplete({
+		minChars: 2,
+		cache:false,
+		source: function(term, suggest){
+			 $.ajax({
+				url: 'http://zone47.com/crotos/ajax_refresh.php',
+				type: 'GET',
+				data: {keyword:$('#cr').val()},
+				success:function(data){
+					stip=$('#cr').val();
+					var suggestions = data.split("|");
+					suggest(suggestions);
+				},
+				error: function(data) {
+				  $('#cr').removeClass('ui-autocomplete-loading');  
+				}
+			});
+		},
+		renderItem: function (item, search){
+			var re = new RegExp("(" + search + ")", "gi");
+			var n = item.indexOf("¤");
+			var data=item.substring(0,n);
+			item=item.substring(n+1,item.length);
+			return '<div class="autocomplete-suggestion"  data-val="http://zone47.com/crotos/?' + data + '" title="'+item.replace( /<.*?>/g, '' )+'">'+ item + '</div>';
+		}
+	});
+	$('#cr').keyup(function(e){
+		if(e.keyCode == 13)
+			if ($(".selected" ).length)
+				document.location.href=$(".selected").attr("data-val");
+	});
+});
+ </script>
+ <style>
+ /* autoComplete styles */
+.autocomplete-suggestions {
+	text-align: left; cursor: pointer; border: 1px solid #ccc; border-top: 0; background: #fff; box-shadow: -1px 1px 3px rgba(0,0,0,.1);
+	position: absolute; display: none; z-index: 9999; max-height: 254px; overflow: hidden; overflow-y: auto; box-sizing: border-box;
+}
+.autocomplete-suggestion { position: relative; padding: 0; line-height: 23px; white-space: nowrap; overflow: hidden; font-size: 0.95em; color: #333;border-top:1px solid #eee ;}
+.autocomplete-suggestion:first-child {border-top:0}
+.autocomplete-suggestion b { font-weight: normal; color: #1f8dd6; }
+.ims{
+	line-height: 32px;
+}
+.is{
+	display:inline-block;
+	width:75px;
+	text-align:center;
+	position:relative;
+	top:5px;
+}
+.lbs{
+	position:relative;
+	top:-5px;
+	display:inline-block;
+}
+.lbi{
+	color:#717171;
+}
+.lis{
+	color:#717171;
+	display:inline-block;
+	min-width:67px;
+	position:relative;
+	left:3px;
+	margin-right:5px;
+	text-overflow: clip;
+}
+.als{
+	color:#717171;
+}
+.autocomplete-suggestion.selected{
+	background: #eee;
+}
+ </style>
+</head>
+
+<body>
+
+  <div id="search">
+		<form method="GET" action="crotos/">
+			<label for="cr">Crotos</label> <input type="text" name="s" id="cr" class="chmp" />
+			<input type="submit"  value="↪"http://zone47.com/>
+		</form>
+	
+   </div>
+
+</html>
